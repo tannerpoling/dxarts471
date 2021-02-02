@@ -1,2 +1,2 @@
 # dxarts471
-UW Mechatronic Art I
+A place to store my reports, code, and schematics from DXARTS 471: Intro to Mechatronic Art
