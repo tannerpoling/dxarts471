@@ -1,0 +1,7 @@
+todo
+- implement proximity-controlled noise
+- implement proximity-controlled random vs not random timing for speech
+- implement soil moisture sensor -> value mapped to .wav files
+
+notes
+- need pduino, comport external libraries
