@@ -7,6 +7,11 @@ int numRects;
 int rectDelay; // time between adding new shapes
 String[] cameras;
 Capture cam;
+PImage img;
+float wave;
+boolean imgTaken;
+int imgDelay;
+int imgDistort;
 
 void setup() {
   size(600, 400);
@@ -14,8 +19,10 @@ void setup() {
   rectMode(CENTER);
   rects = new ArrayList<myRect>();
   numRects = 5;
-  rectDelay = 10;
-  
+  rectDelay = 15;
+  imgDelay = 200;
+  imgTaken = false;
+  imgDistort = 1;
   // set up camera
   cameras = Capture.list();
   if (cameras.length == 0) {
@@ -35,15 +42,35 @@ void draw() {
     if (frameCount == i*rectDelay) rects.add(new myRect(0));
   }
 
+  wave = sin(radians(frameCount));
+
   if (frameCount == 300) {
-    boolean oneTime = true;
-    if (cam.available() == true && oneTime == true) {
+    if (cam.available() == true && imgTaken == false) {
         cam.read();
-        oneTime = false;
+        imgTaken = true;
+        img = cam;
       }
-      
   }
-  image(cam, 0, 0);
+  if (imgTaken) {
+    image(img, 0, 0);
+    loadPixels();
+    int len = width*height;
+    for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        int loc = x+y*width;
+        pixels[loc] = pixels[(int)(imgDistort * loc + (int) random(10)) % len];
+        //imgDistort = abs((int)(imgDistort + wave) % 10);
+        //img = pixels;
+        //pixels[loc] = pixels[loc / 2];
+      }
+    }
+    updatePixels();
+  }
+
+  
+  
+
+
 
   for (myRect curRect : rects) {
     curRect.display();

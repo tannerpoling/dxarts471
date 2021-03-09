@@ -3,8 +3,8 @@ class myRect {
   PShape s;
   float x, y;
   float scalePercent;
-  int r = 245;
-  int g = 118;
+  int r = 255;
+  int g = 100;
   int b = 0;
   int alpha = 255;
   float size = 0;
